@@ -60,7 +60,7 @@ from transformers import (
         Trainer
     )
 
-from LogitProcessor import CFEnhancedLogitsProcessor3
+from LogitProcessor import ConstrainedLogitsProcessor
 from transformers.generation import LogitsProcessor
 import math
 
@@ -668,7 +668,7 @@ class ReReTrainer(Trainer):
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
-        ccc = CFEnhancedLogitsProcessor3(
+        ccc = ConstrainedLogitsProcessor(
                 # guidance_scale=1.0,
                 # cf_logits=None,
                 prefix_allowed_tokens_fn=self.prefix_allowed_tokens_fn,
