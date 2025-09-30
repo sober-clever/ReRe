@@ -1,4 +1,4 @@
-# Implementations of  Reinforced Preference Optimization for Recommendation (ReRe).
+# The implementation of "Reinforced Preference Optimization for Recommendation" (ReRe).
 
 ## File Description 
 
