@@ -104,15 +104,6 @@ def main(
     tokenizer.padding_side = "left"
     val_dataset=EvalD3Dataset(train_file=test_data_path, tokenizer=tokenizer, max_len=2560, category=category, test=True, K=K, seed=seed)
 
-    if logits_file is not None:
-        if not logits_file.endswith(".npy"):
-            logits_file = None
-    
-    if logits_file is not None:
-        logits = np.load(logits_file)
-        sasrec_logits = torch.tensor(logits).softmax(dim = -1)
-        sasrec_logits = sasrec_logits[val_dataset.data['Unnamed: 0'].tolist()]
-        
     encodings = [val_dataset[i] for i in range(len(val_dataset))]
     # encodings = [val_dataset[i] for i in indexes]
     test_data = val_dataset.get_all()

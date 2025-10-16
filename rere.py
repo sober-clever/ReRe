@@ -5,7 +5,6 @@ import numpy as np
 import torch
 from data import D3Dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from mlp import MLP
 import os
 from rere_trainer import ReReTrainer
 from sasrec import SASRec
