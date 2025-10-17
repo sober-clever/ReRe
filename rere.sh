@@ -16,7 +16,6 @@ do
                                     --eval_file ${eval_file} \
                                     --info_file ${info_file} \
                                     --category ${category} \
-                                    --sample_frac 1.0 \
                                     --sample_train False \
                                     --eval_step 0.5 \
                                     --reward_type ranking \
