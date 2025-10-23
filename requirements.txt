@@ -1,4 +1,4 @@
-ccelerate==1.10.1
+accelerate==1.10.1
 aiofiles==24.1.0
 aiohappyeyeballs==2.3.5
 aiohttp==3.10.3
