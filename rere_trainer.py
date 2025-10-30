@@ -583,20 +583,20 @@ class ReReTrainer(Trainer):
         if self._signature_columns is None:
             self._signature_columns = ["prompt"]
 
-    # def _get_train_sampler(self,  *args, **kwargs) -> Sampler:
-    #     # Returns a sampler that ensures each prompt is repeated across multiple processes. This guarantees that
-    #     # identical prompts are distributed to different GPUs, allowing rewards to be computed and normalized correctly
-    #     # within each prompt group. Using the same seed across processes ensures consistent prompt assignment,
-    #     # preventing discrepancies in group formation.
-    #     sampler = super()._get_train_sampler(*args, **kwargs)
-    #     return RepeatRandomSampler(self.train_dataset, self.num_generations, seed=self.args.seed)
-    
-    def _get_train_sampler(self) -> Sampler:
+    def _get_train_sampler(self,  *args, **kwargs) -> Sampler:
         # Returns a sampler that ensures each prompt is repeated across multiple processes. This guarantees that
         # identical prompts are distributed to different GPUs, allowing rewards to be computed and normalized correctly
         # within each prompt group. Using the same seed across processes ensures consistent prompt assignment,
         # preventing discrepancies in group formation.
+        sampler = super()._get_train_sampler(*args, **kwargs)
         return RepeatRandomSampler(self.train_dataset, self.num_generations, seed=self.args.seed)
+    
+    # def _get_train_sampler(self) -> Sampler:
+    #     # Returns a sampler that ensures each prompt is repeated across multiple processes. This guarantees that
+    #     # identical prompts are distributed to different GPUs, allowing rewards to be computed and normalized correctly
+    #     # within each prompt group. Using the same seed across processes ensures consistent prompt assignment,
+    #     # preventing discrepancies in group formation.
+    #     return RepeatRandomSampler(self.train_dataset, self.num_generations, seed=self.args.seed)
 
     def _get_eval_sampler(self, eval_dataset) -> Sampler:
         # Returns a sampler that ensures each prompt is repeated across multiple processes. This guarantees that
