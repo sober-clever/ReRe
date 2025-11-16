@@ -158,7 +158,7 @@ def train(
             bf16=True,
             logging_steps=1,
             optim="adamw_torch",
-            evaluation_strategy="steps",
+            eval_strategy="steps",
             eval_steps=eval_step, 
             save_strategy="steps",
             save_steps=eval_step,
