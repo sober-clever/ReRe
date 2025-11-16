@@ -1,4 +1,5 @@
 for category in "Industrial_and_Scientific"
+do
     train_file=$(ls -f ./data/Amazon/train/${category}*11.csv)
     eval_file=$(ls -f ./data/Amazon/valid/${category}*11.csv)
     test_file=$(ls -f ./data/Amazon/test/${category}*11.csv)
