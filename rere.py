@@ -85,6 +85,7 @@ def train(
         train_dataset = train_dataset.select(range(int(0.2 * len(train_dataset)), len(train_dataset)))
     eval_dataset = Dataset.from_dict({k : [elm[k] for elm in eval_data] for k in eval_data[0].keys()})
     eval_dataset = eval_dataset.shuffle(seed=seed)
+    # eval_dataset = eval_dataset.select(range(10))
 
     prompt2history = {**train_data.prompt2history, **eval_data.prompt2history}
     history2target = {**train_data.history2target, **eval_data.history2target}
@@ -115,6 +116,7 @@ def train(
 
   
     ndcg_rewards = [-1.0/math.log2(i+2) for i in range(num_generations)]
+    # ndcg_rewards = [-1.0/((i+2)**2) for i in range(num_generations)]
     ndcg_rewards = [-elm/sum(ndcg_rewards) for elm in ndcg_rewards]
     def ndcg_rule_reward(prompts, completions):
         history = [prompt2history[prompt] for prompt in prompts]
@@ -241,7 +243,7 @@ def train(
     # eval_step = int(eval_step * len(train_dataset) / train_batch_size)
     # print(f"sync_ref_model: {sync_ref_model}")
     training_args = GRPOConfig(output_dir=output_dir,
-                                save_steps=0.1,
+                                save_steps=0.5,
                                 save_total_limit=20,
                                 eval_strategy="steps",
                                 max_completion_length=128,

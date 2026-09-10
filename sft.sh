@@ -1,22 +1,25 @@
-for category in "Industrial_and_Scientific"
+export WANDB_MODE="offline"
+
+{
+for category in "Yelp"
 do
-    train_file=$(ls -f ./data/Amazon/train/${category}*11.csv)
-    eval_file=$(ls -f ./data/Amazon/valid/${category}*11.csv)
-    test_file=$(ls -f ./data/Amazon/test/${category}*11.csv)
-    info_file=$(ls -f ./data/Amazon/info/${category}*.txt)
+    train_file=$(ls -f ./data/Yelp/train/${category}*11.csv)
+    eval_file=$(ls -f ./data/Yelp/valid/${category}*11.csv)
+    test_file=$(ls -f ./data/Yelp/test/${category}*11.csv)
+    info_file=$(ls -f ./data/Yelp/info/${category}*.txt)
     echo ${train_file} ${test_fie} ${info_file} ${eval_file}
     
-    torchrun --nproc_per_node 4 \
+    torchrun --nproc_per_node 8 \
             sft.py \
             --base_model path_to_model \
             --train_file ${train_file} \
             --eval_file ${eval_file} \
-            --output_dir output_dir \
-            --wandb_project wandb_proj \
-            --wandb_run_name wandb_name \
+            --output_dir ./ckpt/exp_name \
+            --wandb_project ReRe \
+            --wandb_run_name exp_name \
             --category ${category} \
             --train_from_scratch False\
-            --seed 42
-    
+            --num_epochs 10 \
+            --seed 100
 done
-
+} > logs/exp_name.log 2>&1 

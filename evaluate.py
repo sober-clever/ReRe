@@ -55,7 +55,7 @@ def main(
     category_dict = {"Industrial_and_Scientific": "industrial and scientific items", "Yelp": "restaurants", "Toys_and_Games": "toys and games"}
     category = category_dict[category]
     print(category)
-
+    print(f"base_model: {base_model}")
     model = AutoModelForCausalLM.from_pretrained(base_model, torch_dtype=torch.bfloat16)
     model.eval()
     with open(info_file, 'r') as f:
@@ -63,7 +63,7 @@ def main(
         info = ["\"" + _[:-len(_.split('\t')[-1])].strip() + "\"\n" for _ in info]
         item_names = info
         info = [f'''### Response:\n{_}''' for _ in info]
-
+    print("Model Loaded")
 
     tokenizer = AutoTokenizer.from_pretrained(base_model)
     if base_model.lower().find("llama") > -1:
